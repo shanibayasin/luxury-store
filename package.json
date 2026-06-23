@@ -1,5 +1,16 @@
 {
+  "name": "luxury-store",
+  "version": "1.0.0",
+  "scripts": {
+    "server": "cd server && node server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "kill": "taskkill /f /im node.exe"
+  },
   "devDependencies": {
     "concurrently": "^10.0.3"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.18.0"
   }
 }
