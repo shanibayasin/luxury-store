@@ -12,6 +12,12 @@ const orderSchema = new mongoose.Schema({
     }
   ],
   totalAmount: { type: Number, required: true },
+  // Naya field yahan add kiya hai
+  status: { 
+    type: String, 
+    enum: ['Pending', 'Shipped', 'Delivered', 'Cancelled'], 
+    default: 'Pending' 
+  },
   createdAt: { type: Date, default: Date.now },
 });
 
