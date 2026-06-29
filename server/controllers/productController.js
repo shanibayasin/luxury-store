@@ -11,7 +11,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
     try {
-        const { name, price } = req.body;
+        const { name, price, description } = req.body;
 
         if (!name || !price) {
             return res.status(400).json({ error: "Name and price are required" });
@@ -22,6 +22,7 @@ exports.addProduct = async (req, res) => {
         const newProduct = new Product({
             name: name.trim(),
             price: parseFloat(price),
+            description: description?.trim() || "",
             image: imageUrl,
         });
 
@@ -48,7 +49,7 @@ exports.deleteProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { name, price } = req.body;
+        const { name, price, description } = req.body;
 
         if (!name || !price) {
             return res.status(400).json({ error: "Name and price are required" });
@@ -57,6 +58,7 @@ exports.updateProduct = async (req, res) => {
         const updatedData = {
             name: name.trim(),
             price: parseFloat(price),
+            description: description?.trim() || "",
         };
 
         // Update image only if new file is uploaded

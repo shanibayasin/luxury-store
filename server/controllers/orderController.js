@@ -10,7 +10,32 @@ exports.getOrders = async (req, res) => {
     }
 };
 
-// 2. Order status update karne ke liye (Dropdown change par)
+// 2. Naya order create karne ke liye (Checkout se)
+exports.createOrder = async (req, res) => {
+    try {
+        const { name, address, phone, cartItems, totalAmount } = req.body;
+
+        if (!name || !address || !phone || !cartItems?.length || !totalAmount) {
+            return res.status(400).json({ error: "Please provide your details and cart items." });
+        }
+
+        const newOrder = new Order({
+            name: name.trim(),
+            address: address.trim(),
+            phone: phone.trim(),
+            cartItems,
+            totalAmount: Number(totalAmount),
+            status: 'Pending',
+        });
+
+        await newOrder.save();
+        res.status(201).json({ message: "Order placed successfully!", order: newOrder });
+    } catch (err) {
+        res.status(500).json({ error: err.message || "Order creation failed" });
+    }
+};
+
+// 3. Order status update karne ke liye (Dropdown change par)
 exports.updateStatus = async (req, res) => {
     try {
         const { status } = req.body;
